@@ -58,9 +58,9 @@ public class UserController extends HttpServlet {
             String password = req.getParameter("password");
             
             User user = new User();
-            user.setUsername(username);
+            user.setFullName(username);
             user.setEmail(email);
-            user.setPassword(password);
+            user.setPasswordHash(password);
             
             userService.createUser(user);
             resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -83,7 +83,11 @@ public class UserController extends HttpServlet {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             
-            User user = new User(id, username, email, password);
+            User user = new User();
+            user.setUserID(id);
+            user.setFullName(username);
+            user.setEmail(email);
+            user.setPasswordHash(password);
             userService.updateUser(user);
             resp.getWriter().write("{\"message\":\"User updated successfully\"}");
         } catch (SQLException e) {
