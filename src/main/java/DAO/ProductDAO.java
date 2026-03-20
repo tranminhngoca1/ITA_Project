@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductRepository {
+public class ProductDAO {
 
     public List<Product> findAll() throws SQLException {
         List<Product> products = new ArrayList<>();

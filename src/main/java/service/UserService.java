@@ -1,39 +1,39 @@
 package service;
 
 import model.User;
-import DAO.UserRepository;
+import DAO.UserDAO;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
-    private final UserRepository userRepository;
+    private final UserDAO userDAO;
 
     public UserService() {
-        this.userRepository = new UserRepository();
+        this.userDAO = new UserDAO();
     }
 
     public List<User> getAllUsers() throws SQLException {
-        return userRepository.findAll();
+        return userDAO.findAll();
     }
 
     public User getUserById(int id) throws SQLException {
-        return userRepository.findById(id);
+        return userDAO.findById(id);
     }
 
     public User getUserByEmail(String email) throws SQLException {
-        return userRepository.findByEmail(email);
+        return userDAO.findByEmail(email);
     }
 
     public void createUser(User user) throws SQLException {
-        userRepository.save(user);
+        userDAO.save(user);
     }
 
     public void updateUser(User user) throws SQLException {
-        userRepository.update(user);
+        userDAO.update(user);
     }
 
     public void deleteUser(int id) throws SQLException {
-        userRepository.delete(id);
+        userDAO.delete(id);
     }
 }

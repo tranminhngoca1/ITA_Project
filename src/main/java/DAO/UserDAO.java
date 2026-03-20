@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository {
+public class UserDAO {
 
     public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();

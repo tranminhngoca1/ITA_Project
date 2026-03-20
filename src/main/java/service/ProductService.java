@@ -1,39 +1,39 @@
 package service;
 
 import model.Product;
-import DAO.ProductRepository;
+import DAO.ProductDAO;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
-    private final ProductRepository productRepository;
+    private final ProductDAO productDAO;
 
     public ProductService() {
-        this.productRepository = new ProductRepository();
+        this.productDAO = new ProductDAO();
     }
 
     public List<Product> getAllProducts() throws SQLException {
-        return productRepository.findAll();
+        return productDAO.findAll();
     }
 
     public Product getProductById(int id) throws SQLException {
-        return productRepository.findById(id);
+        return productDAO.findById(id);
     }
 
     public List<Product> getProductsByCategory(int categoryID) throws SQLException {
-        return productRepository.findByCategory(categoryID);
+        return productDAO.findByCategory(categoryID);
     }
 
     public void createProduct(Product product) throws SQLException {
-        productRepository.save(product);
+        productDAO.save(product);
     }
 
     public void updateProduct(Product product) throws SQLException {
-        productRepository.update(product);
+        productDAO.update(product);
     }
 
     public void deleteProduct(int id) throws SQLException {
-        productRepository.delete(id);
+        productDAO.delete(id);
     }
 }
