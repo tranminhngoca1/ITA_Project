@@ -21,6 +21,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public User getUserByEmail(String email) throws SQLException {
+        return userRepository.findByEmail(email);
+    }
+
     public void createUser(User user) throws SQLException {
         userRepository.save(user);
     }

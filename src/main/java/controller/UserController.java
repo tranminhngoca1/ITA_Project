@@ -112,8 +112,9 @@ public class UserController extends HttpServlet {
 
     private String toJson(User user) {
         return String.format(
-            "{\"id\":%d,\"username\":\"%s\",\"email\":\"%s\"}",
-            user.getId(), user.getUsername(), user.getEmail()
+            "{\"userID\":%d,\"fullName\":\"%s\",\"email\":\"%s\",\"phone\":\"%s\",\"roleID\":%d}",
+            user.getUserID(), user.getFullName(), user.getEmail(), 
+            user.getPhone() != null ? user.getPhone() : "", user.getRoleID()
         );
     }
 
