@@ -16,6 +16,10 @@ public class DatabaseConnection {
     static {
         try (InputStream input = DatabaseConnection.class.getClassLoader()
                 .getResourceAsStream("db.properties")) {
+            if (input == null) {
+                System.err.println("Critical Error: db.properties not found in classpath!");
+                throw new RuntimeException("db.properties not found");
+            }
             Properties prop = new Properties();
             prop.load(input);
             
@@ -25,7 +29,10 @@ public class DatabaseConnection {
             driver = prop.getProperty("db.driver");
             
             Class.forName(driver);
+            System.out.println("Database driver loaded successfully: " + driver);
         } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error initializing DatabaseConnection: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("Failed to load database configuration", e);
         }
     }

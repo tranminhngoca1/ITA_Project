@@ -1,0 +1,7 @@
+# Copy file này và đổi tên thành db.properties
+# Sau đó cập nhật thông tin database của bạn
+
+db.url=jdbc:sqlserver://localhost:1433;databaseName=ITA
+db.username=sa
+db.password=123
+db.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver

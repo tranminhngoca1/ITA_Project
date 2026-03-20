@@ -35,4 +35,14 @@
         <servlet-name>UserPageController</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
+
+    <!-- Order Controller -->
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>controller.OrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
 </web-app>
