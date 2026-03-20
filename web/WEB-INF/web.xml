@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    <display-name>DashMin Application</display-name>
+    <display-name>CoffeeLux Management System</display-name>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    <!-- API Controller -->
+    
+    <!-- User API Controller -->
     <servlet>
         <servlet-name>UserController</servlet-name>
         <servlet-class>controller.UserController</servlet-class>
@@ -14,7 +15,18 @@
         <servlet-name>UserController</servlet-name>
         <url-pattern>/api/user/*</url-pattern>
     </servlet-mapping>
-    <!-- Page Controller -->
+    
+    <!-- Product API Controller -->
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>controller.ProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/api/product/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- User Page Controller -->
     <servlet>
         <servlet-name>UserPageController</servlet-name>
         <servlet-class>controller.UserPageController</servlet-class>
