@@ -64,7 +64,8 @@ public class ProductController extends HttpServlet {
     }
 
     private String toJson(List<Product> products) {
-        StringBuilder json = new StringBuilder("[");
+        StringBuilder json =
+         new StringBuilder("[");
         for (int i = 0; i < products.size(); i++) {
             json.append(toJson(products.get(i)));
             if (i < products.size() - 1) {
