@@ -378,3 +378,44 @@ INSERT INTO ProductBOM (ProductID, IngredientID, Quantity, UnitID, IsOptional, D
 (10, 3, 30.0, 14, 0, 1),
 (10, 4, 120.0, 16, 0, 2),
 (10, 8, 10.0, 14, 1, 3);
+
+
+SELECT po.POID, s.ShopName, sup.SupplierName,
+                   st.Name AS StatusName,
+                   po.CreatedAt
+            FROM PurchaseOrder po
+            JOIN Shop s ON po.ShopID = s.ShopID
+            JOIN Supplier sup ON po.SupplierID = sup.SupplierID
+            LEFT JOIN Setting st ON po.StatusID = st.SettingID
+            ORDER BY po.CreatedAt DESC
+
+select * from PurchaseOrderDetail
+
+SELECT pod.PODetailID,
+                   i.Name,
+                   pod.Quantity,
+                   pod.ReceivedQuantity,
+                   s.Value AS Unit
+            FROM PurchaseOrderDetail pod
+            JOIN Ingredient i ON pod.IngredientID = i.IngredientID
+            LEFT JOIN Setting s ON i.UnitID = s.SettingID
+            WHERE pod.POID = 5
+select * from PurchaseOrder
+select * from PurchaseOrderDetail
+
+INSERT INTO PurchaseOrder
+            (ShopID, SupplierID, CreatedBy, StatusID)
+            VALUES ('1', '3', '4', '24')
+
+INSERT INTO PurchaseOrderDetail
+            (POID, IngredientID, Quantity)
+            VALUES ('2','4' , '30.00')
+
+UPDATE i
+            SET i.StockQuantity = i.StockQuantity + pod.Quantity
+            FROM Ingredient i
+            JOIN PurchaseOrderDetail pod
+            ON i.IngredientID = pod.IngredientID
+            WHERE pod.POID = 6
+
+UPDATE PurchaseOrder SET StatusID = 23 WHERE POID = 7
