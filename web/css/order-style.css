@@ -1,0 +1,125 @@
+/* Order Status Badge Colors */
+.badge-new {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-preparing {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.badge-ready {
+    background-color: #20c997;
+    color: white;
+}
+
+.badge-completed {
+    background-color: #198754;
+    color: white;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-priority {
+    background-color: #dc3545;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+    margin-left: 0.3rem;
+}
+
+/* Action Buttons */
+.btn-action {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    margin: 0 0.1rem;
+}
+
+.btn-accept {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+}
+
+.btn-accept:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-complete {
+    background-color: #198754;
+    color: white;
+    border: none;
+}
+
+.btn-complete:hover {
+    background-color: #157347;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-cancel:hover {
+    background-color: #bb2d3b;
+}
+
+/* Search and Filter Section */
+.filter-section {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-box {
+    max-width: 400px;
+}
+
+/* Table Styling */
+.order-table {
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.order-table th {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    padding: 1rem 0.75rem;
+}
+
+.order-table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.order-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Priority Highlight */
+.priority-row {
+    border-left: 4px solid #dc3545;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
