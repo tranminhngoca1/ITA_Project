@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//* day la userdao*/
 public class UserDAO {
 
     public List<User> findAll() throws SQLException {
