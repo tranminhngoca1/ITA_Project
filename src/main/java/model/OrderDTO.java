@@ -10,6 +10,9 @@ public class OrderDTO {
     private BigDecimal total;
     private Timestamp createdAt;
     private String status;
+    private String customerName;
+    private boolean isPriority;
+    private int statusID;
 
     public OrderDTO() {}
 
@@ -68,5 +71,29 @@ public class OrderDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public boolean isPriority() {
+        return isPriority;
+    }
+
+    public void setPriority(boolean priority) {
+        isPriority = priority;
+    }
+
+    public int getStatusID() {
+        return statusID;
+    }
+
+    public void setStatusID(int statusID) {
+        this.statusID = statusID;
     }
 }

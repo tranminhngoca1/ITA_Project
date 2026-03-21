@@ -15,4 +15,16 @@ public class OrderService {
     public List<OrderDTO> getAllOrders() throws SQLException {
         return orderDAO.getAllOrders();
     }
+    
+    public List<OrderDTO> searchOrders(String keyword, String status) throws SQLException {
+        return orderDAO.searchOrders(keyword, status);
+    }
+    
+    public boolean acceptOrder(int orderID) throws SQLException {
+        return orderDAO.updateOrderStatus(orderID, 30);
+    }
+    
+    public boolean updateOrderStatus(int orderID, int statusID) throws SQLException {
+        return orderDAO.updateOrderStatus(orderID, statusID);
+    }
 }
