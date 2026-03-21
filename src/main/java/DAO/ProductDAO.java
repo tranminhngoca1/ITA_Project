@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-#day la product
 public class ProductDAO {
 
     public List<Product> findAll() throws SQLException {
