@@ -61,7 +61,7 @@
 
             <!-- Main Content -->
             <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded p-4">
+                <div class="bg-white rounded p-4">
                     <!-- Header -->
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h4 class="mb-0"><i class="fa fa-list me-2"></i>Order List</h4>
@@ -107,7 +107,7 @@
 
                     <!-- Orders Table -->
                     <div class="table-responsive order-table">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-bordered mb-0">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -298,7 +298,7 @@
 
             <!-- Footer -->
             <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
+                <div class="bg-white rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
                             &copy; <a href="#">CoffeeLux</a>, All Right Reserved.

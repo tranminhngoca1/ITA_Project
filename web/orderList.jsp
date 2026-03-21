@@ -9,6 +9,25 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/order-style.css" rel="stylesheet">
+    <style>
+        .table thead th {
+            background-color: white !important;
+            color: #000000 !important;
+            font-weight: 900 !important;
+            border: 1px solid #000 !important;
+        }
+        .table td {
+            border: 1px solid #000 !important;
+            background-color: white !important;
+        }
+        .table {
+            background-color: white !important;
+        }
+        .bg-secondary {
+            background-color: white !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid position-relative d-flex p-0">
