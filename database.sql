@@ -419,3 +419,10 @@ UPDATE i
             WHERE pod.POID = 6
 
 UPDATE PurchaseOrder SET StatusID = 23 WHERE POID = 7
+
+SELECT * FROM Ingredient ORDER BY IngredientID DESC
+
+select * from Ingredient
+
+INSERT INTO Ingredient (Name, StockQuantity, UnitID, SupplierID, IsActive)
+        VALUES ('Bánh Tây Nguyên', 40.80, 14, 5, 1)

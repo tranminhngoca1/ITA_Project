@@ -6,18 +6,26 @@ public class Ingredient {
     private int ingredientID;
     private String name;
     private double stockQuantity;
-    private String unit;
+
+    private int unitID;
+    private int supplierID;
+
+    // hiển thị
+    private String unitName;
     private String supplierName;
+
     private boolean isActive;
 
     public Ingredient() {
     }
 
-    public Ingredient(int ingredientID, String name, double stockQuantity, String unit, String supplierName, boolean isActive) {
+    public Ingredient(int ingredientID, String name, double stockQuantity, int unitID, int supplierID, String unitName, String supplierName, boolean isActive) {
         this.ingredientID = ingredientID;
         this.name = name;
         this.stockQuantity = stockQuantity;
-        this.unit = unit;
+        this.unitID = unitID;
+        this.supplierID = supplierID;
+        this.unitName = unitName;
         this.supplierName = supplierName;
         this.isActive = isActive;
     }
@@ -46,12 +54,28 @@ public class Ingredient {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getUnit() {
-        return unit;
+    public int getUnitID() {
+        return unitID;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setUnitID(int unitID) {
+        this.unitID = unitID;
+    }
+
+    public int getSupplierID() {
+        return supplierID;
+    }
+
+    public void setSupplierID(int supplierID) {
+        this.supplierID = supplierID;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     public String getSupplierName() {

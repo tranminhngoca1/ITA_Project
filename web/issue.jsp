@@ -2,14 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <h2>Issue (Xuất kho)</h2>
 
-<form method="post">
+<form action="issue" method="post">
 <select name="ingredientID">
 <c:forEach var="i" items="${ingredients}">
 <option value="${i.ingredientID}">${i.name}</option>
 </c:forEach>
 </select>
 
-<input name="quantity"/>
+    <input type="number" step="0.1 "name="quantity" required/>
 <button>Issue</button>
 </form>
 
