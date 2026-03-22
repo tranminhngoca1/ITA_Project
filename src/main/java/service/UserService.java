@@ -36,4 +36,12 @@ public class UserService {
     public void deleteUser(int id) throws SQLException {
         userDAO.delete(id);
     }
+
+    public User authenticate(String email, String password) throws SQLException {
+        User user = userDAO.findByEmail(email);
+        if (user != null && user.getPasswordHash().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }
