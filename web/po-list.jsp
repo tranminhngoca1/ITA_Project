@@ -29,6 +29,9 @@
                             <thead>
                                 <tr class="text-dark">
                                     <th scope="col">ID</th>
+                                    <th scope="col">Shop</th>
+                                    <th scope="col">Supplier</th>
+                                    <th scope="col">Creator</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -36,19 +39,23 @@
                             <tbody>
                                 <c:forEach var="po" items="${list}">
                                 <tr>
-                                    <td>${po.poID}</td>
+                                    <td>0${po.poID}</td>
+                                    <td>${po.shopName}</td>
+                                    <td>${po.supplierName}</td>
+                                    <td>${po.createdBy}</td>
                                     <td>
-                                        <span class="badge bg-info">${po.status}</span>
+                                        ${po.status}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-info" href="po?action=detail&id=${po.poID}"><i class="bi bi-eye"></i> Detail</a>
-                                        <a class="btn btn-sm btn-outline-success" href="po?action=receive&id=${po.poID}"><i class="bi bi-check-circle"></i> Receive</a>
+                                        <a class="text-dark me-2 fs-5" href="po?action=detail&id=${po.poID}"><i class="bi bi-eye-fill"></i></a>
+                                        <a class="text-dark me-2 fs-5" href="po?action=edit&id=${po.poID}"><i class="bi bi-pencil-square"></i></a>
+                                        <a class="text-dark fs-5" href="po?action=delete&id=${po.poID}"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                                 </c:forEach>
                                 <c:if test="${empty list}">
                                     <tr>
-                                        <td colspan="3" class="text-center">Chưa có dữ liệu</td>
+                                        <td colspan="6" class="text-center">Chưa có dữ liệu</td>
                                     </tr>
                                 </c:if>
                             </tbody>

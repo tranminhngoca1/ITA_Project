@@ -8,16 +8,18 @@ public class PurchaseOrder {
     private String supplierName;
     private String status;
     private Date createdAt;
+    private String createdBy;
 
     public PurchaseOrder() {
     }
 
-    public PurchaseOrder(int poID, String shopName, String supplierName, String status, Date createdAt) {
+    public PurchaseOrder(int poID, String shopName, String supplierName, String status, Date createdAt, String createdBy) {
         this.poID = poID;
         this.shopName = shopName;
         this.supplierName = supplierName;
         this.status = status;
         this.createdAt = createdAt;
+        this.createdBy = createdBy;
     }
 
     public int getPoID() {
@@ -59,5 +61,12 @@ public class PurchaseOrder {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 }
