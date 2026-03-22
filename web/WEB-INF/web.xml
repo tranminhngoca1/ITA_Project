@@ -57,6 +57,16 @@
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
+    <!-- Reset Password Controller -->
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>controller.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/reset-pass</url-pattern>
+    </servlet-mapping>
+
     <!-- Login Controller -->
     <servlet>
         <servlet-name>LoginController</servlet-name>

@@ -191,7 +191,7 @@
             Sign in with Google
         </a>
 
-        <a href="password-reset.jsp" class="password-reset-link">Password Reset</a>
+        <a href="<%=request.getContextPath()%>/reset-pass" class="password-reset-link">Password Reset</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
