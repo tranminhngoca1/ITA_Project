@@ -37,6 +37,16 @@ public class UserService {
         userDAO.delete(id);
     }
 
+    public List<User> searchUsers(String name, String status, int page, int limit) throws SQLException {
+        int offset = (page - 1) * limit;
+        if (offset < 0) offset = 0;
+        return userDAO.searchUsers(name, status, offset, limit);
+    }
+
+    public int countTotalUsers(String name, String status) throws SQLException {
+        return userDAO.countTotalUsers(name, status);
+    }
+
     public User authenticate(String email, String password) throws SQLException {
         User user = userDAO.findByEmail(email);
         if (user != null && user.getPasswordHash().equals(password)) {

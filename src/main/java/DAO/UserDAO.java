@@ -12,7 +12,8 @@ public class UserDAO {
 
     public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT UserID, FullName, Email, PasswordHash, Gender, Phone, Address, AvatarUrl, RoleID, IsActive, CreatedAt FROM [User]";
+        String sql = "SELECT u.UserID, u.FullName, u.Email, u.PasswordHash, u.Gender, u.Phone, u.Address, u.AvatarUrl, u.RoleID, s.Name AS RoleName, u.IsActive, u.CreatedAt " +
+                     "FROM [User] u LEFT JOIN Setting s ON u.RoleID = s.SettingID";
         
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -27,7 +28,8 @@ public class UserDAO {
     }
 
     public User findById(int id) throws SQLException {
-        String sql = "SELECT UserID, FullName, Email, PasswordHash, Gender, Phone, Address, AvatarUrl, RoleID, IsActive, CreatedAt FROM [User] WHERE UserID = ?";
+        String sql = "SELECT u.UserID, u.FullName, u.Email, u.PasswordHash, u.Gender, u.Phone, u.Address, u.AvatarUrl, u.RoleID, s.Name AS RoleName, u.IsActive, u.CreatedAt " +
+                     "FROM [User] u LEFT JOIN Setting s ON u.RoleID = s.SettingID WHERE u.UserID = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -43,7 +45,8 @@ public class UserDAO {
     }
 
     public User findByEmail(String email) throws SQLException {
-        String sql = "SELECT UserID, FullName, Email, PasswordHash, Gender, Phone, Address, AvatarUrl, RoleID, IsActive, CreatedAt FROM [User] WHERE Email = ?";
+        String sql = "SELECT u.UserID, u.FullName, u.Email, u.PasswordHash, u.Gender, u.Phone, u.Address, u.AvatarUrl, u.RoleID, s.Name AS RoleName, u.IsActive, u.CreatedAt " +
+                     "FROM [User] u LEFT JOIN Setting s ON u.RoleID = s.SettingID WHERE u.Email = ?";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -107,6 +110,72 @@ public class UserDAO {
         }
     }
 
+    public List<User> searchUsers(String name, String status, int offset, int limit) throws SQLException {
+        List<User> users = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT u.UserID, u.FullName, u.Email, u.PasswordHash, u.Gender, u.Phone, u.Address, u.AvatarUrl, u.RoleID, s.Name AS RoleName, u.IsActive, u.CreatedAt FROM [User] u LEFT JOIN Setting s ON u.RoleID = s.SettingID WHERE 1=1");
+        
+        if (name != null && !name.trim().isEmpty()) {
+            sql.append(" AND u.FullName LIKE ?");
+        }
+        if (status != null && !status.trim().isEmpty()) {
+            sql.append(" AND u.IsActive = ?");
+        }
+        sql.append(" ORDER BY u.UserID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+            
+            int paramIndex = 1;
+            if (name != null && !name.trim().isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + name.trim() + "%");
+            }
+            if (status != null && !status.trim().isEmpty()) {
+                boolean isActive = status.equalsIgnoreCase("Active") || status.equals("1") || status.equals("true");
+                pstmt.setBoolean(paramIndex++, isActive);
+            }
+            pstmt.setInt(paramIndex++, offset);
+            pstmt.setInt(paramIndex, limit);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(mapResultSetToUser(rs));
+                }
+            }
+        }
+        return users;
+    }
+
+    public int countTotalUsers(String name, String status) throws SQLException {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM [User] u WHERE 1=1");
+        
+        if (name != null && !name.trim().isEmpty()) {
+            sql.append(" AND u.FullName LIKE ?");
+        }
+        if (status != null && !status.trim().isEmpty()) {
+            sql.append(" AND u.IsActive = ?");
+        }
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+            
+            int paramIndex = 1;
+            if (name != null && !name.trim().isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + name.trim() + "%");
+            }
+            if (status != null && !status.trim().isEmpty()) {
+                boolean isActive = status.equalsIgnoreCase("Active") || status.equals("1") || status.equals("true");
+                pstmt.setBoolean(paramIndex, isActive);
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
+
     private User mapResultSetToUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserID(rs.getInt("UserID"));
@@ -118,6 +187,11 @@ public class UserDAO {
         user.setAddress(rs.getString("Address"));
         user.setAvatarUrl(rs.getString("AvatarUrl"));
         user.setRoleID(rs.getInt("RoleID"));
+        try {
+            user.setRoleName(rs.getString("RoleName"));
+        } catch (SQLException e) {
+            // column not found, ignore
+        }
         user.setActive(rs.getBoolean("IsActive"));
         user.setCreatedAt(rs.getTimestamp("CreatedAt"));
         return user;

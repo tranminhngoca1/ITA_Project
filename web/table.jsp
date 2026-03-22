@@ -26,6 +26,27 @@
                         <h6 class="mb-0">User List</h6>
                         <a href="#" class="btn btn-sm btn-primary">Add New</a>
                     </div>
+
+                    <!-- Search Filter Form -->
+                    <form action="users" method="GET" class="mb-4">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-auto">
+                                <input type="text" name="name" class="form-control form-control-sm" placeholder="Search by Name" value="${searchName}">
+                            </div>
+                            <div class="col-auto">
+                                <select name="status" class="form-select form-select-sm">
+                                    <option value="" ${empty searchStatus ? 'selected' : ''}>All Status</option>
+                                    <option value="Active" ${searchStatus == 'Active' ? 'selected' : ''}>Active</option>
+                                    <option value="Inactive" ${searchStatus == 'Inactive' ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Lọc</button>
+                                <a href="users" class="btn btn-sm btn-secondary">Xóa Lọc</a>
+                            </div>
+                        </div>
+                    </form>
+
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
@@ -46,7 +67,7 @@
                                         <td>${user.fullName}</td>
                                         <td>${user.gender}</td>
                                         <td>${user.email}</td>
-                                        <td>${user.roleID}</td>
+                                        <td>${not empty user.roleName ? user.roleName : user.roleID}</td>
                                         <td>
                                             <span class="badge ${user.active ? 'bg-success' : 'bg-danger'}">${user.active ? 'Active' : 'Inactive'}</span>
                                         </td>
@@ -64,6 +85,26 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Pagination -->
+                    <c:if test="${totalPages > 1}">
+                        <nav aria-label="Page navigation" class="mt-4">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="users?page=${currentPage - 1}&name=${searchName}&status=${searchStatus}" tabindex="-1">Previous</a>
+                                </li>
+                                <c:forEach begin="1" end="${totalPages}" var="i">
+                                    <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                        <a class="page-link" href="users?page=${i}&name=${searchName}&status=${searchStatus}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                    <a class="page-link" href="users?page=${currentPage + 1}&name=${searchName}&status=${searchStatus}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </c:if>
+
                 </div>
             </div>
 

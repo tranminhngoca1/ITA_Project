@@ -12,6 +12,7 @@ public class User {
     private String address;
     private String avatarUrl;
     private int roleID;
+    private String roleName;
     private boolean isActive;
     private Timestamp createdAt;
 
@@ -102,6 +103,14 @@ public class User {
 
     public void setRoleID(int roleID) {
         this.roleID = roleID;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public boolean isActive() {
