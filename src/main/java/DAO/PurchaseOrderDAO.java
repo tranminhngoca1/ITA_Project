@@ -11,11 +11,13 @@ public class PurchaseOrderDAO {
     public List<PurchaseOrder> getAllPO() {
         List<PurchaseOrder> list = new ArrayList<>();
         String sql = "SELECT po.POID, s.ShopName, sup.SupplierName,\n"
+                + "                   u.FullName AS CreatorName,\n"
                 + "                   st.Name AS StatusName,\n"
                 + "                   po.CreatedAt\n"
                 + "            FROM PurchaseOrder po\n"
                 + "            JOIN Shop s ON po.ShopID = s.ShopID\n"
                 + "            JOIN Supplier sup ON po.SupplierID = sup.SupplierID\n"
+                + "            LEFT JOIN [User] u ON po.CreatedBy = u.UserID\n"
                 + "            LEFT JOIN Setting st ON po.StatusID = st.SettingID\n"
                 + "            ORDER BY po.CreatedAt DESC";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -25,6 +27,7 @@ public class PurchaseOrderDAO {
                 po.setPoID(rs.getInt("POID"));
                 po.setShopName(rs.getString("ShopName"));
                 po.setSupplierName(rs.getString("SupplierName"));
+                po.setCreatedBy(rs.getString("CreatorName"));
                 po.setStatus(rs.getString("StatusName"));
                 po.setCreatedAt(rs.getTimestamp("CreatedAt"));
                 list.add(po);
