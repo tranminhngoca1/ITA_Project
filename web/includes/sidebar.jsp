@@ -17,8 +17,11 @@
         </div>
         <div class="navbar-nav w-100">
             <a href="index.jsp" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            <a href="table.jsp" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-            <a href="form.jsp" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+            <a href="users" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Người dùng</a>
+            <a href="ingredient" class="nav-item nav-link"><i class="fa fa-leaf me-2"></i>Nguyên liệu</a>
+            <a href="orders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>Đơn hàng</a>
+            <a href="po" class="nav-item nav-link"><i class="fa fa-file-invoice-dollar me-2"></i>Nhập hàng</a>
+            <a href="issue" class="nav-item nav-link"><i class="fa fa-exclamation-triangle me-2"></i>Vấn đề</a>
         </div>
     </nav>
 </div>

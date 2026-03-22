@@ -31,26 +31,34 @@
                             <thead>
                                 <tr class="text-dark">
                                     <th scope="col">ID</th>
-                                    <th scope="col">Username</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Giới tính</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach var="user" items="${users}">
                                     <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.username}</td>
+                                        <td>${user.userID}</td>
+                                        <td>${user.fullName}</td>
+                                        <td>${user.gender}</td>
                                         <td>${user.email}</td>
+                                        <td>${user.roleID}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="user?action=edit&id=${user.id}">Edit</a>
-                                            <a class="btn btn-sm btn-danger" href="user?action=delete&id=${user.id}">Delete</a>
+                                            <span class="badge ${user.active ? 'bg-success' : 'bg-danger'}">${user.active ? 'Active' : 'Inactive'}</span>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-outline-primary" href="user?action=edit&id=${user.userID}" title="Chỉnh sửa"><i class="bi bi-pencil"></i></a>
+                                            <a class="btn btn-sm btn-outline-info" href="user?action=view&id=${user.userID}" title="Xem"><i class="bi bi-eye"></i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
                                 <c:if test="${empty users}">
                                     <tr>
-                                        <td colspan="4" class="text-center">No users found</td>
+                                        <td colspan="7" class="text-center">Không tìm thấy người dùng</td>
                                     </tr>
                                 </c:if>
                             </tbody>
