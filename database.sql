@@ -1,4 +1,4 @@
-﻿create database ITA;
+create database ITA;
 -- ============================================
 -- 1. Bảng Setting
 -- ============================================
@@ -192,7 +192,7 @@ INSERT INTO Setting (Name, Type, Value, Priority, Description, IsActive) VALUES
 (N'HR Manager', N'Role', N'HR', 2, N'Nhân sự - Quản lý nhân viên', 1),
 (N'Inventory Manager', N'Role', N'Inventory', 3, N'Quản lý kho - Nhập xuất hàng', 1),
 (N'Barista', N'Role', N'Barista', 4, N'Pha chế - Nhân viên pha cà phê', 1),
-(N'Customer', N'Role', N'User', 5, N'Người dùng - Xem thông tin shop', 1),
+(N'Customer', N'Role', N'User', 5, N'Người dùng - Xem thông tin shop', 0),
 
 (N'Espresso Coffee', N'Category', N'Espresso', 1, N'Các loại cà phê espresso', 1),
 (N'Latte Series', N'Category', N'Latte', 2, N'Cà phê sữa nghệ thuật', 1),

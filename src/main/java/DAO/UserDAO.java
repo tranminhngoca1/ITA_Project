@@ -180,7 +180,7 @@ public class UserDAO {
 
     public Map<Integer, String> getRoles() throws SQLException {
         Map<Integer, String> roles = new LinkedHashMap<>();
-        String sql = "SELECT SettingID, Name FROM Setting WHERE Type = 'Role' AND IsActive = 1 ORDER BY Priority";
+        String sql = "SELECT SettingID, Name FROM Setting WHERE Type = 'Role' AND IsActive = 1 AND Name <> 'Customer' ORDER BY Priority";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
