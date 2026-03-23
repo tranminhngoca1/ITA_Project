@@ -5,6 +5,8 @@ import util.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class OrderDAO {
     
@@ -100,5 +102,68 @@ public class OrderDAO {
             pstmt.setInt(2, orderID);
             return pstmt.executeUpdate() > 0;
         }
+    }
+
+    public OrderDTO getOrderById(int orderId) throws SQLException {
+        String sql = "SELECT o.OrderID, p.ProductName, od.Quantity, " +
+                    "(od.Quantity * od.Price) AS Total, o.CreatedAt, s.Value AS Status, " +
+                    "u.FullName AS CustomerName, o.StatusID " +
+                    "FROM [Order] o " +
+                    "JOIN OrderDetail od ON o.OrderID = od.OrderID " +
+                    "JOIN Product p ON od.ProductID = p.ProductID " +
+                    "LEFT JOIN Setting s ON o.StatusID = s.SettingID " +
+                    "LEFT JOIN [User] u ON o.CreatedBy = u.UserID " +
+                    "WHERE o.OrderID = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, orderId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                OrderDTO order = null;
+                while (rs.next()) {
+                    if (order == null) {
+                        order = new OrderDTO();
+                        order.setOrderID(rs.getInt("OrderID"));
+                        order.setProductName(rs.getString("ProductName") + " (x" + rs.getInt("Quantity") + ")");
+                        order.setQuantity(rs.getInt("Quantity"));
+                        order.setTotal(rs.getBigDecimal("Total"));
+                        order.setCreatedAt(rs.getTimestamp("CreatedAt"));
+                        order.setStatus(rs.getString("Status"));
+                        order.setCustomerName(rs.getString("CustomerName"));
+                        order.setStatusID(rs.getInt("StatusID"));
+                    } else {
+                        order.setProductName(order.getProductName() + ", " + rs.getString("ProductName") + " (x" + rs.getInt("Quantity") + ")");
+                        order.setQuantity(order.getQuantity() + rs.getInt("Quantity"));
+                        order.setTotal(order.getTotal().add(rs.getBigDecimal("Total")));
+                    }
+                }
+                return order;
+            }
+        }
+    }
+
+    public boolean updateOrderDetails(int orderID, int statusID) throws SQLException {
+        String sqlOrder = "UPDATE [Order] SET StatusID = ? WHERE OrderID = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmtOrder = conn.prepareStatement(sqlOrder)) {
+            pstmtOrder.setInt(1, statusID);
+            pstmtOrder.setInt(2, orderID);
+            return pstmtOrder.executeUpdate() > 0;
+        }
+    }
+
+    public Map<Integer, String> getOrderStatuses() throws SQLException {
+        Map<Integer, String> statuses = new LinkedHashMap<>();
+        String sql = "SELECT SettingID, Value FROM Setting WHERE Type = 'OrderStatus' ORDER BY Priority";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                statuses.put(rs.getInt("SettingID"), rs.getString("Value"));
+            }
+        }
+        return statuses;
     }
 }

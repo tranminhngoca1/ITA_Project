@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class OrderController extends HttpServlet {
     private OrderService orderService;
@@ -26,6 +27,13 @@ public class OrderController extends HttpServlet {
         try {
             if ("search".equals(action)) {
                 handleSearch(request, response);
+            } else if ("edit".equals(action)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                OrderDTO order = orderService.getOrderById(id);
+                Map<Integer, String> statuses = orderService.getOrderStatuses();
+                request.setAttribute("order", order);
+                request.setAttribute("statuses", statuses);
+                request.getRequestDispatcher("/orderDetails.jsp").forward(request, response);
             } else {
                 List<OrderDTO> orders = orderService.getAllOrders();
                 request.setAttribute("orders", orders);
@@ -50,6 +58,11 @@ public class OrderController extends HttpServlet {
                 int orderID = Integer.parseInt(request.getParameter("orderID"));
                 int statusID = Integer.parseInt(request.getParameter("statusID"));
                 orderService.updateOrderStatus(orderID, statusID);
+                response.sendRedirect("orders");
+            } else if ("update".equals(action)) {
+                int orderID = Integer.parseInt(request.getParameter("orderID"));
+                int statusID = Integer.parseInt(request.getParameter("statusID"));
+                orderService.updateOrderDetails(orderID, statusID);
                 response.sendRedirect("orders");
             }
         } catch (SQLException e) {

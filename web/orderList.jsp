@@ -90,13 +90,14 @@
                                     <th scope="col">Total</th>
                                     <th scope="col">Time</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:choose>
                                     <c:when test="${empty orders}">
                                         <tr>
-                                            <td colspan="6" class="text-center py-4">
+                                            <td colspan="7" class="text-center py-4">
                                                 <i class="fa fa-inbox fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted">No orders found</p>
                                             </td>
@@ -131,6 +132,9 @@
                                                             <span class="badge bg-secondary">${order.status}</span>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-outline-primary" href="order?action=edit&id=${order.orderID}" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
