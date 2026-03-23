@@ -86,4 +86,8 @@
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/orders</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
 </web-app>
