@@ -22,6 +22,7 @@
             <a href="orders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>Đơn hàng</a>
             <a href="po" class="nav-item nav-link"><i class="fa fa-file-invoice-dollar me-2"></i>Nhập hàng</a>
             <a href="issue" class="nav-item nav-link"><i class="fa fa-exclamation-triangle me-2"></i>Vấn đề</a>
+            <a href="settings?action=list" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Cài đặt</a>
         </div>
     </nav>
 </div>
