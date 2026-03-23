@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
-        <a href="index.jsp" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+        <a href="index.jsp" class="navbar-brand mx-3 mb-3">
+            <h4 class="text-primary"><i class="fa fa-coffee me-2"></i>COFFEE SYSTEM</h4>
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
