@@ -71,6 +71,16 @@
         <url-pattern>/user/shoplist/*</url-pattern>
     </servlet-mapping>
 
+    <!-- User Profile Controller -->
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>controller.UserProfileController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/user/profile</url-pattern>
+    </servlet-mapping>
+
     <!-- Reset Password Controller -->
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
