@@ -114,4 +114,14 @@
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/order</url-pattern>
     </servlet-mapping>
+
+    <!-- Setting Controller -->
+    <servlet>
+        <servlet-name>SettingController</servlet-name>
+        <servlet-class>controller.SettingController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SettingController</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
 </web-app>
