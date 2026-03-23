@@ -120,54 +120,37 @@ public class OrderDAO {
             
             pstmt.setInt(1, orderId);
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    OrderDTO order = new OrderDTO();
-                    order.setOrderID(rs.getInt("OrderID"));
-                    order.setProductName(rs.getString("ProductName"));
-                    order.setQuantity(rs.getInt("Quantity"));
-                    order.setTotal(rs.getBigDecimal("Total"));
-                    order.setCreatedAt(rs.getTimestamp("CreatedAt"));
-                    order.setStatus(rs.getString("Status"));
-                    order.setCustomerName(rs.getString("CustomerName"));
-                    order.setStatusID(rs.getInt("StatusID"));
-                    return order;
+                OrderDTO order = null;
+                while (rs.next()) {
+                    if (order == null) {
+                        order = new OrderDTO();
+                        order.setOrderID(rs.getInt("OrderID"));
+                        order.setProductName(rs.getString("ProductName") + " (x" + rs.getInt("Quantity") + ")");
+                        order.setQuantity(rs.getInt("Quantity"));
+                        order.setTotal(rs.getBigDecimal("Total"));
+                        order.setCreatedAt(rs.getTimestamp("CreatedAt"));
+                        order.setStatus(rs.getString("Status"));
+                        order.setCustomerName(rs.getString("CustomerName"));
+                        order.setStatusID(rs.getInt("StatusID"));
+                    } else {
+                        order.setProductName(order.getProductName() + ", " + rs.getString("ProductName") + " (x" + rs.getInt("Quantity") + ")");
+                        order.setQuantity(order.getQuantity() + rs.getInt("Quantity"));
+                        order.setTotal(order.getTotal().add(rs.getBigDecimal("Total")));
+                    }
                 }
+                return order;
             }
         }
-        return null;
     }
 
-    public boolean updateOrderDetails(int orderID, int statusID, int quantity) throws SQLException {
+    public boolean updateOrderDetails(int orderID, int statusID) throws SQLException {
         String sqlOrder = "UPDATE [Order] SET StatusID = ? WHERE OrderID = ?";
-        String sqlDetail = "UPDATE OrderDetail SET Quantity = ? WHERE OrderID = ?";
         
-        Connection conn = null;
-        try {
-            conn = DatabaseConnection.getConnection();
-            conn.setAutoCommit(false);
-            
-            try (PreparedStatement pstmtOrder = conn.prepareStatement(sqlOrder)) {
-                pstmtOrder.setInt(1, statusID);
-                pstmtOrder.setInt(2, orderID);
-                pstmtOrder.executeUpdate();
-            }
-            
-            try (PreparedStatement pstmtDetail = conn.prepareStatement(sqlDetail)) {
-                pstmtDetail.setInt(1, quantity);
-                pstmtDetail.setInt(2, orderID);
-                pstmtDetail.executeUpdate();
-            }
-            
-            conn.commit();
-            return true;
-        } catch (SQLException e) {
-            if (conn != null) conn.rollback();
-            throw e;
-        } finally {
-            if (conn != null) {
-                conn.setAutoCommit(true);
-                conn.close();
-            }
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmtOrder = conn.prepareStatement(sqlOrder)) {
+            pstmtOrder.setInt(1, statusID);
+            pstmtOrder.setInt(2, orderID);
+            return pstmtOrder.executeUpdate() > 0;
         }
     }
 
