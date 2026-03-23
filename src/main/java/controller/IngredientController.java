@@ -68,6 +68,17 @@ public class IngredientController extends HttpServlet {
             request.getRequestDispatcher("ingredient-list.jsp").forward(request, response);
         } else if ("add".equals(action)) {
             request.getRequestDispatcher("ingredient-add.jsp").forward(request, response);
+        } else if ("edit".equals(action)) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            request.setAttribute("ingredient", service.getById(id));
+            request.getRequestDispatcher("ingredient-edit.jsp").forward(request, response);
+
+        } else if ("delete".equals(action)) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            service.delete(id);
+            response.sendRedirect(request.getContextPath() + "/ingredient?action=list");
         }
 
     }
@@ -89,39 +100,26 @@ public class IngredientController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("add".equals(action)) {
-            try {
-                String name = request.getParameter("name");
-                String stockStr = request.getParameter("stockQuantity");
-                String unitStr = request.getParameter("unitID");
-                String supStr = request.getParameter("supplierID");
 
-                // 👉 VALIDATE
-                if (name == null || name.trim().isEmpty()
-                        || stockStr == null || stockStr.isEmpty()
-                        || unitStr == null || unitStr.isEmpty()
-                        || supStr == null || supStr.isEmpty()) {
+            Ingredient i = new Ingredient();
+            i.setName(request.getParameter("name"));
+            i.setStockQuantity(Double.parseDouble(request.getParameter("stockQuantity")));
+            i.setUnitID(Integer.parseInt(request.getParameter("unitID")));
+            i.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
 
-                    throw new RuntimeException("Missing input");
-                }
+            service.insert(i);
+            response.sendRedirect(request.getContextPath() + "/ingredient?action=list");
 
-                double stock = Double.parseDouble(stockStr);
-                int unitID = Integer.parseInt(unitStr);
-                int supplierID = Integer.parseInt(supStr);
-                boolean isActive = request.getParameter("isActive") != null;
+        } else if ("update".equals(action)) {
 
-                Ingredient i = new Ingredient();
-                i.setName(name);
-                i.setStockQuantity(stock);
-                i.setUnitID(unitID);
-                i.setSupplierID(supplierID);
-                i.setIsActive(isActive);
+            Ingredient i = new Ingredient();
+            i.setIngredientID(Integer.parseInt(request.getParameter("id")));
+            i.setName(request.getParameter("name"));
+            i.setStockQuantity(Double.parseDouble(request.getParameter("stockQuantity")));
+            i.setUnitID(Integer.parseInt(request.getParameter("unitID")));
+            i.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
 
-                service.insert(i);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            service.update(i);
             response.sendRedirect(request.getContextPath() + "/ingredient?action=list");
         }
     }

@@ -66,4 +66,66 @@ public class IngredientDAO {
             e.printStackTrace();
         }
     }
+
+    public void update(Ingredient i) {
+        String sql = """
+            UPDATE Ingredient
+            SET Name=?, StockQuantity=?, UnitID=?, SupplierID=?
+            WHERE IngredientID=?
+        """;
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, i.getName());
+            ps.setDouble(2, i.getStockQuantity());
+            ps.setInt(3, i.getUnitID());
+            ps.setInt(4, i.getSupplierID());
+            ps.setInt(5, i.getIngredientID());
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // SOFT DELETE
+    public void delete(int id) {
+        String sql = "UPDATE Ingredient SET IsActive = 0 WHERE IngredientID = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // GET BY ID
+    public Ingredient getById(int id) {
+        String sql = "SELECT * FROM Ingredient WHERE IngredientID=?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Ingredient i = new Ingredient();
+                i.setIngredientID(rs.getInt("IngredientID"));
+                i.setName(rs.getString("Name"));
+                i.setStockQuantity(rs.getDouble("StockQuantity"));
+                i.setUnitID(rs.getInt("UnitID"));
+                i.setSupplierID(rs.getInt("SupplierID"));
+                return i;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 }

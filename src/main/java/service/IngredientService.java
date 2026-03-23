@@ -18,4 +18,16 @@ public class IngredientService {
         }
         dao.insert(i);
     }
+    
+     public Ingredient getById(int id) {
+        return dao.getById(id);
+    }
+     
+      public void update(Ingredient i) {
+        dao.update(i);
+    }
+
+    public void delete(int id) {
+        dao.delete(id);
+    }
 }
