@@ -3,66 +3,76 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Add Ingredient</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- 🔥 FIX: dùng contextPath cho CSS -->
-    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-<div class="container mt-4">
+<div class="container-fluid position-relative bg-white d-flex p-0">
 
-    <h4>Add Ingredient</h4>
+    <%@ include file="includes/sidebar.jsp" %>
 
-    <!-- 🔥 ACTION CHUẨN -->
-    <form action="${pageContext.request.contextPath}/ingredient" method="post">
+    <div class="content">
 
-        <input type="hidden" name="action" value="add"/>
+        <%@ include file="includes/navbar.jsp" %>
 
-        <!-- NAME -->
-        <input name="name"
-               class="form-control mb-2"
-               placeholder="Name"
-               required/>
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light rounded p-4">
 
-        <!-- STOCK -->
-        <input name="stockQuantity"
-               type="number"
-               step="0.01"
-               min="0"
-               class="form-control mb-2"
-               placeholder="Stock"
-               required/>
+                <h4>Add Ingredient</h4>
 
-        <!-- UNIT -->
-        <input name="unitID"
-               type="number"
-               class="form-control mb-2"
-               placeholder="UnitID (13=kg)"
-               required/>
+                <form action="${pageContext.request.contextPath}/ingredient" method="post">
 
-        <!-- SUPPLIER -->
-        <input name="supplierID"
-               type="number"
-               class="form-control mb-2"
-               placeholder="SupplierID (1-5)"
-               required/>
+                    <input type="hidden" name="action" value="add"/>
 
-        <!-- ACTIVE -->
-        <label class="mb-2">
-            <input type="checkbox" name="isActive" checked/> Active
-        </label>
+                    <input name="name"
+                           class="form-control mb-2"
+                           placeholder="Name"
+                           required/>
 
-        <br>
+                    <input name="stockQuantity"
+                           type="number"
+                           step="0.01"
+                           min="0"
+                           class="form-control mb-2"
+                           placeholder="Stock"
+                           required/>
 
-        <button type="submit" class="btn btn-success">Add</button>
+                    <input name="unitID"
+                           type="number"
+                           class="form-control mb-2"
+                           placeholder="UnitID"
+                           required/>
 
-        <!-- 🔥 BACK -->
-        <a href="${pageContext.request.contextPath}/ingredient?action=list"
-           class="btn btn-secondary">Back</a>
+                    <input name="supplierID"
+                           type="number"
+                           class="form-control mb-2"
+                           placeholder="SupplierID"
+                           required/>
 
-    </form>
+                    <button type="submit" class="btn btn-success">
+                        Add
+                    </button>
 
+                    <a href="${pageContext.request.contextPath}/ingredient?action=list"
+                       class="btn btn-secondary">
+                        Back
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+        <%@ include file="includes/footer.jsp" %>
+
+    </div>
 </div>
+
+<script src="js/main.js"></script>
 </body>
 </html>

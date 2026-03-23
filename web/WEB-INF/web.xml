@@ -95,6 +95,16 @@
         <url-pattern>/reset-pass</url-pattern>
     </servlet-mapping>
 
+    <!-- Logout Controller -->
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
     <!-- Login Controller -->
     <servlet>
         <servlet-name>LoginController</servlet-name>
