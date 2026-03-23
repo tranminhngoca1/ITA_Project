@@ -122,7 +122,7 @@ public class UserDAO {
         if (status != null && !status.trim().isEmpty()) {
             sql.append(" AND u.IsActive = ?");
         }
-        sql.append(" ORDER BY u.UserID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        sql.append(" ORDER BY u.UserID DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {

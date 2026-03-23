@@ -29,6 +29,18 @@ public class UserPageController extends HttpServlet {
                 Map<Integer, String> roles = userService.getRoles();
                 req.setAttribute("roles", roles);
                 req.getRequestDispatcher("/addUser.jsp").forward(req, resp);
+            } else if ("edit".equals(action)) {
+                int id = Integer.parseInt(req.getParameter("id"));
+                User user = userService.getUserById(id);
+                Map<Integer, String> roles = userService.getRoles();
+                req.setAttribute("user", user);
+                req.setAttribute("roles", roles);
+                req.getRequestDispatcher("/editUser.jsp").forward(req, resp);
+            } else if ("view".equals(action)) {
+                int id = Integer.parseInt(req.getParameter("id"));
+                User user = userService.getUserById(id);
+                req.setAttribute("user", user);
+                req.getRequestDispatcher("/user_details.jsp").forward(req, resp);
             } else {
                 handleListUsers(req, resp);
             }
@@ -55,6 +67,19 @@ public class UserPageController extends HttpServlet {
                 user.setActive(true); // Default to active
                 
                 userService.createUser(user);
+                resp.sendRedirect(req.getContextPath() + "/users");
+            } else if ("update".equals(action)) {
+                int userId = Integer.parseInt(req.getParameter("userID"));
+                User user = userService.getUserById(userId);
+                user.setFullName(req.getParameter("fullName"));
+                user.setEmail(req.getParameter("email"));
+                user.setGender(req.getParameter("gender"));
+                user.setPhone(req.getParameter("phone"));
+                user.setAddress(req.getParameter("address"));
+                user.setRoleID(Integer.parseInt(req.getParameter("roleID")));
+                user.setActive(req.getParameter("isActive") != null);
+                
+                userService.updateUser(user);
                 resp.sendRedirect(req.getContextPath() + "/users");
             }
         } catch (SQLException e) {
