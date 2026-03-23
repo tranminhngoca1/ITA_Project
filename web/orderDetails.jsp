@@ -101,8 +101,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="form-label fw-bold" style="color: black;">Quantity</label>
-                                    <input type="number" class="form-control" name="quantity" value="${order.quantity}" min="1">
+                                    <label class="form-label fw-bold" style="color: black;">Total Quantity</label>
+                                    <input type="text" class="form-control disabled-field" value="${order.quantity}" disabled>
                                 </div>
                             </div>
                         </div>

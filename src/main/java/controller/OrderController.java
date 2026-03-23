@@ -62,8 +62,7 @@ public class OrderController extends HttpServlet {
             } else if ("update".equals(action)) {
                 int orderID = Integer.parseInt(request.getParameter("orderID"));
                 int statusID = Integer.parseInt(request.getParameter("statusID"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                orderService.updateOrderDetails(orderID, statusID, quantity);
+                orderService.updateOrderDetails(orderID, statusID);
                 response.sendRedirect("orders");
             }
         } catch (SQLException e) {
