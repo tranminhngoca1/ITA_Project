@@ -24,7 +24,7 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">User List</h6>
-                        <a href="#" class="btn btn-sm btn-primary">Add New</a>
+                        <a href="user?action=add" class="btn btn-sm btn-primary">Add New</a>
                     </div>
 
                     <!-- Search Filter Form -->

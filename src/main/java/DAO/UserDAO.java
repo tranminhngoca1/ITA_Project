@@ -6,6 +6,8 @@ import util.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 //* day la userdao*/
 public class UserDAO {
@@ -174,6 +176,19 @@ public class UserDAO {
             }
         }
         return 0;
+    }
+
+    public Map<Integer, String> getRoles() throws SQLException {
+        Map<Integer, String> roles = new LinkedHashMap<>();
+        String sql = "SELECT SettingID, Name FROM Setting WHERE Type = 'Role' AND IsActive = 1 ORDER BY Priority";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                roles.put(rs.getInt("SettingID"), rs.getString("Name"));
+            }
+        }
+        return roles;
     }
 
     private User mapResultSetToUser(ResultSet rs) throws SQLException {

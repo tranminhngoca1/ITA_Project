@@ -56,6 +56,10 @@
         <servlet-name>UserPageController</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserPageController</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
 
     <!-- User Shop List Controller -->
     <servlet>

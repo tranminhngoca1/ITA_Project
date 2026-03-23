@@ -5,6 +5,7 @@ import DAO.UserDAO;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class UserService {
     private final UserDAO userDAO;
@@ -53,5 +54,8 @@ public class UserService {
             return user;
         }
         return null;
+    }
+    public Map<Integer, String> getRoles() throws SQLException {
+        return userDAO.getRoles();
     }
 }
